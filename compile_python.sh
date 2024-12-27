@@ -42,7 +42,7 @@ export LDFLAGS="-Wl,-rpath $PYTHON_INSTALL_DIR/lib"
     --enable-optimizations \
     --prefix="$PYTHON_INSTALL_DIR" \
     --enable-shared \
-    # --with-lto
+    --with-lto
 
 NUM_THREAD=$(($(nproc) - 4))
 
