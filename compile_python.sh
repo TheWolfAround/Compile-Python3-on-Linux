@@ -6,16 +6,14 @@ libncurses5-dev libgdbm-dev libnss3-dev libssl-dev
 libreadline-dev libffi-dev libsqlite3-dev libbz2-dev"
 
 update_package_index=0
-dont_update_package_index=0
 # Loop through each package and check if it is installed
 for pkg in $packages; do
     if dpkg -s "$pkg" 1> /dev/null; then
         echo "$pkg is already installed"
     else
-        update_package_index=1
-        if [ $update_package_index -eq 1 ] && [ $dont_update_package_index -ne 1 ]; then
+        if [ $update_package_index -eq 0 ]; then
             sudo apt update
-            dont_update_package_index=1 #the script will update the package index once
+            update_package_index=1 #the script will update the package index once
         fi
         echo "$pkg is not installed"
         sudo apt install $pkg -y
