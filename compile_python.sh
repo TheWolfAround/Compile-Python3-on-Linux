@@ -3,7 +3,7 @@
 # List of packages to check
 packages="build-essential wget pkg-config zlib1g-dev 
 libncurses5-dev libgdbm-dev libnss3-dev libssl-dev 
-libreadline-dev libffi-dev libsqlite3-dev libbz2-dev"
+libreadline-dev libffi-dev libsqlite3-dev libbz2-dev liblzma-dev tk-dev"
 
 update_package_index=0
 # Loop through each package and check if it is installed
