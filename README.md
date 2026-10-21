@@ -26,3 +26,27 @@ To undo, just remove the symlinks (your compiled Python in `~/.MY_PYTHON_3.13.15
 ```
 sudo rm /usr/local/bin/python /usr/local/bin/python3 /usr/local/bin/pip /usr/local/bin/pip3
 ```
+
+## If You Delete Your Compiled Python
+
+Deleting `~/.MY_PYTHON_3.13.15` does **not** remove the symlinks in `/usr/local/bin`. A symlink is just a small file that stores a path — it is not tied to its target, so nothing cleans it up when the target disappears. The four links stay in place but become **dangling (broken) symlinks**: they still exist on your `PATH`, but running them fails with a confusing error like:
+
+```
+bash: /usr/local/bin/python3: No such file or directory
+```
+
+So if you remove the build, remove the links too:
+
+```
+sudo rm /usr/local/bin/python /usr/local/bin/python3 /usr/local/bin/pip /usr/local/bin/pip3
+```
+
+(`rm` on a symlink removes the link itself, never the target — safe.)
+
+Then verify nothing is left dangling:
+
+```
+find /usr/local/bin -xtype l
+```
+
+Nothing else references the build: pip-installed scripts live inside `~/.MY_PYTHON_3.13.15/bin/` and are deleted together with the directory, so the four `/usr/local/bin` links are the only cleanup needed.
